@@ -35,7 +35,7 @@ app.post("/register", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("secrets");
+      res.render("acc_home");
     }
   });
 });
@@ -50,11 +50,28 @@ app.post("/login", function (req, res) {
     } else {
       if (foundUser) {
         if (foundUser.password === password) {
-          res.render("secrets");
+          res.render("acc_home");
         }
       }
     }
   });
+});
+app.get("/logout", function (req, res) {
+  if (req.session) {
+    req.session.destroy(function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect("/");
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.get("/account", function (req, res) {
+  res.render("my_account");
 });
 
 app.listen(3000, function () {
