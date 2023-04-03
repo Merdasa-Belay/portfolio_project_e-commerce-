@@ -13,11 +13,14 @@ mongoose.connect(
   "mongodb+srv://admin-merdasa:test123@cluster0.ntdeu9a.mongodb.net/userDB",
   {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   }
 );
+
 const userSchema = { email: String, password: String };
 
 const User = new mongoose.model("User", userSchema);
+
 app.get("/", function (req, res) {
   res.render("home");
 });
@@ -25,6 +28,7 @@ app.get("/", function (req, res) {
 app.get("/login", function (req, res) {
   res.render("login");
 });
+
 app.get("/register", function (req, res) {
   res.render("register");
 });
@@ -59,6 +63,7 @@ app.post("/login", function (req, res) {
     }
   });
 });
+
 app.get("/logout", function (req, res) {
   if (req.session) {
     req.session.destroy(function (err) {
@@ -77,6 +82,6 @@ app.get("/account", function (req, res) {
   res.render("my_account");
 });
 
-app.listen(process.env.PORT || 3000, function () {
+app.listen(3000, function () {
   console.log("Server started on port 3000");
 });
