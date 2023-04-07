@@ -1,5 +1,5 @@
 // jshint esversion:6
-//e-commerce web
+
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -26,8 +26,12 @@ mongoose
     console.log("Error connecting to MongoDB", err);
   });
 
-const userSchema = { email: String, password: String };
-const User = new mongoose.model("User", userSchema);
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String,
+});
+
+const User = mongoose.model("User", userSchema);
 
 app.get("/", function (req, res) {
   res.render("home");
